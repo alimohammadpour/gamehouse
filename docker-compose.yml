@@ -1,0 +1,16 @@
+services:
+  react:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - node
+
+  node:
+    build:
+      context: .
+      dockerfile: node.Dockerfile
+    ports:
+      - "8080:8080"
