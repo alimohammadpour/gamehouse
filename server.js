@@ -8,6 +8,7 @@ let emailMap = {};
 // sendResponse
 // -----------------------------------------------------------------------------
 function sendResponse(res, statusCode, data, contentType = 'application/json') {
+  setCorsHeaders(res);
   res.writeHead(statusCode, { 'Content-Type': contentType });
   res.end(JSON.stringify(data));
 }
@@ -117,6 +118,14 @@ function handleRequest(req, res, path, data) {
     ? API_HANDLERS[path](req, res, data)
     : sendResponse(res, 404, { error: 'Not found' })
   );
+}
+
+// -----------------------------------------------------------------------------
+// Set Cors Header
+// -----------------------------------------------------------------------------
+function setCorsHeaders(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
 }
 
 // -----------------------------------------------------------------------------
