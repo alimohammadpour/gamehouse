@@ -2,14 +2,12 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
   email: string;
-  verificationCode: string;
   pending: boolean;
   error: string | null;
 }
 
 const initialState: UserState = {
   email: '',
-  verificationCode: '',
   pending: false,
   error: null,
 };
@@ -22,8 +20,7 @@ const userSlice = createSlice({
       state.email = payload
       state.pending = true;
     },
-    requestCodeSuccess(state, { payload }: PayloadAction<string>) {
-      state.verificationCode = payload;
+    requestCodeSuccess(state) {
       state.pending = false;
     },
     requestCodeFailure(state, { payload }: PayloadAction<string>) {

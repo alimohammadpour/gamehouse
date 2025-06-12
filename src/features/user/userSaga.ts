@@ -1,13 +1,18 @@
-import { call, takeLatest } from 'redux-saga/effects';
-import axios from 'axios';
-import { requestCodePending } from './userSlice';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { 
+  requestCodeFailure, 
+  requestCodePending, 
+  requestCodeSuccess,
+} from './userSlice';
+// import axios from 'axios';
+import { api } from '../../api';
 
-function* handleRequestCodePending({ payload }: ReturnType<typeof requestCodePending>) {
+export function* handleRequestCodePending({ payload }: ReturnType<typeof requestCodePending>) {
   try {
-    yield call(axios.get, `/api/send-email-validation-code?email=${encodeURIComponent(payload)}`);
-    // yield put(requestCodeSuccess());
+    yield call(api.get, `send-email?email=${encodeURIComponent(payload)}`);
+    yield put(requestCodeSuccess());
   } catch (error: any) {
-    // yield put(requestCodeFailure(error.response?.data?.error || 'Failed to send code'));
+    yield put(requestCodeFailure(error.response?.data?.error || 'Failed to send code'));
   }
 }
 
