@@ -1,15 +1,19 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+export type VerifyCodePendingPayloadType = { email: string; code: string };
+
 interface UserState {
   email: string;
   pending: boolean;
   error: string | null;
+  userId: number | null;
 }
 
 const initialState: UserState = {
   email: '',
   pending: false,
   error: null,
+  userId: null,
 };
 
 const userSlice = createSlice({
@@ -26,6 +30,17 @@ const userSlice = createSlice({
     requestCodeFailure(state, { payload }: PayloadAction<string>) {
       state.pending = false;
       state.error = payload;
+    },
+    verifyCodePending(state, { payload }: PayloadAction<VerifyCodePendingPayloadType>) {
+      state.pending = true;
+    },
+    verifyCodeSuccess(state, { payload }: PayloadAction<number>) {
+      state.pending = false;
+      state.userId = payload;
+    },
+    verifyCodeFailure(state, { payload }: PayloadAction<string>) {
+      state.pending = false;
+      state.error = payload;
     }
   }
 });
@@ -33,7 +48,10 @@ const userSlice = createSlice({
 export const {
   requestCodePending,
   requestCodeSuccess,
-  requestCodeFailure
+  requestCodeFailure,
+  verifyCodePending,
+  verifyCodeSuccess,
+  verifyCodeFailure,
 } = userSlice.actions;
 
 export default userSlice.reducer;

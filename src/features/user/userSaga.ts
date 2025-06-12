@@ -3,8 +3,10 @@ import {
   requestCodeFailure, 
   requestCodePending, 
   requestCodeSuccess,
+  verifyCodeFailure,
+  verifyCodePending,
+  verifyCodeSuccess,
 } from './userSlice';
-// import axios from 'axios';
 import { api } from '../../api';
 
 export function* handleRequestCodePending({ payload }: ReturnType<typeof requestCodePending>) {
@@ -16,6 +18,16 @@ export function* handleRequestCodePending({ payload }: ReturnType<typeof request
   }
 }
 
+function* handleVerifyCodePending({ payload }: ReturnType<typeof verifyCodePending>) {
+  try {
+    const { data: { user_id } } = yield call(api.post, 'validate-email', payload);
+    yield put(verifyCodeSuccess(user_id));
+  } catch (error: any) {
+    yield put(verifyCodeFailure(error.response?.data?.error || 'Verification failed'));
+  }
+}
+
 export default function* userSaga() {
   yield takeLatest(requestCodePending.type, handleRequestCodePending);
+  yield takeLatest(verifyCodePending.type, handleVerifyCodePending);
 }
