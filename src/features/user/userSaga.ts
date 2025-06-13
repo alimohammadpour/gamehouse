@@ -6,6 +6,9 @@ import {
   verifyCodeFailure,
   verifyCodePending,
   verifyCodeSuccess,
+  requestStartTrialPending,
+  requestStartTrialSuccess,
+  requestStartTrialFailure,
 } from './userSlice';
 import { api } from '../../api';
 
@@ -27,7 +30,17 @@ function* handleVerifyCodePending({ payload }: ReturnType<typeof verifyCodePendi
   }
 }
 
+export function* handleRequestStartTrialPending({ payload }: ReturnType<typeof requestStartTrialPending>) {
+  try {
+    yield call(api.post, 'start-trial', payload)
+    yield put(requestStartTrialSuccess());
+  } catch (error: any) {
+    yield put(requestStartTrialFailure(error.response?.data?.error || 'Failed to start trial'));
+  }
+}
+
 export default function* userSaga() {
   yield takeLatest(requestCodePending.type, handleRequestCodePending);
   yield takeLatest(verifyCodePending.type, handleVerifyCodePending);
+  yield takeLatest(requestStartTrialPending.type, handleRequestStartTrialPending);
 }

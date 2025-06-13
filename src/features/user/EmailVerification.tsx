@@ -16,7 +16,7 @@ export const EmailVerification = () => {
     if (userId) {
       navigate('/plans');
     }
-  }, [userId]);
+  }, [userId, navigate]);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
