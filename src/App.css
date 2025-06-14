@@ -85,3 +85,15 @@ input {
   height: 20px;
   color: white;
 }
+
+@media (max-width: 600px) {
+  .card {
+    flex-direction: column;
+    min-width: 0;
+    left: 0;
+  }
+
+  .step {
+    width: 100%;
+  }
+}
