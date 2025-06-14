@@ -3,6 +3,7 @@ import { AccountConnect } from './features/user/AccountConnect';
 import { EmailVerification } from './features/user/EmailVerification';
 import { PlanSelection } from './features/user/PlanSelection';
 import { SubscriptionCongrats } from './components/SubscriptionCongrats';
+import './App.css';
 
 function App() {
   return (
