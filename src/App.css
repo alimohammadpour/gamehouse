@@ -124,6 +124,12 @@
   color: white;
 }
 
+.confetti-svg {
+  width: 200px;
+  position: relative;
+  left: 35%;
+}
+
 @media (max-width: 600px) {
   .card {
     flex-direction: column;
