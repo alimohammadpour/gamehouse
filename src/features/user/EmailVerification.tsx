@@ -58,7 +58,7 @@ export const EmailVerification = () => {
       <div className="step">
         <h2>Get Verified!</h2>
         <h3>Enter the one-time code we sent to:</h3>
-        <p className='code-email'>{ email }</p>
+        <p className='subtitle code-email'>{ email }</p>
         <form onSubmit={handleFormSubmit} className='form'>
           <div className="verification-code-inputs">
             {codeArray.map((digit, index) => (

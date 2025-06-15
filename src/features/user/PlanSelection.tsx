@@ -28,13 +28,15 @@ export const PlanSelection = () => {
   }
 
   return (
-    <div className="step step3">
-      <h1>Choose Your Plan</h1>
-      <PlanList onClickPlan={handlePlanSelect}/>
-      <button onClick={handleStartTrialOnClick} disabled={!selectedPlan || pending}>
-        Start my free trial!
-      </button>
-      {error && <p className="error">{error}</p>}
+    <div className='card'>
+      <div className="step">
+        <h2>Choose Your Plan</h2>
+        <PlanList onClickPlan={handlePlanSelect}/>
+        <button onClick={handleStartTrialOnClick} disabled={!selectedPlan || pending}>
+          Start my free trial!
+        </button>
+        {error && <p className="error">{error}</p>}
+      </div>
     </div>
   );
 };

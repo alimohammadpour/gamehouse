@@ -23,7 +23,7 @@ export const AccountConnect = (): JSX.Element => {
       <FeaturesBanner />
       <div className="step">
         <h2>Connect Your Account</h2>
-        <p>...and unlock your benefits!</p>
+        <p className='subtitle'>...and unlock your benefits!</p>
         <form onSubmit={handleFormSubmit} className='form'>
           <input
             type="email"
