@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 export type VerifyCodePendingPayloadType = { email: string; code: string };
 export type RequestStartTrialPendingPayloadType = { user_id: number };
 
-interface UserState {
+export interface UserState {
   email: string;
   pending: boolean;
   error: string | null;
@@ -11,7 +11,7 @@ interface UserState {
   isSubscribed: boolean;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   email: '',
   pending: false,
   error: null,
