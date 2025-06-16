@@ -29,6 +29,7 @@ const userSlice = createSlice({
     },
     requestCodeSuccess(state) {
       state.pending = false;
+      state.error = null;
     },
     requestCodeFailure(state, { payload }: PayloadAction<string>) {
       state.pending = false;
@@ -40,6 +41,7 @@ const userSlice = createSlice({
     verifyCodeSuccess(state, { payload }: PayloadAction<number>) {
       state.pending = false;
       state.userId = payload;
+      state.error = null;
     },
     verifyCodeFailure(state, { payload }: PayloadAction<string>) {
       state.pending = false;
@@ -51,6 +53,7 @@ const userSlice = createSlice({
     requestStartTrialSuccess(state) {
       state.isSubscribed = true
       state.pending = false;
+      state.error = null;
     },
     requestStartTrialFailure(state, { payload }: PayloadAction<string>) {
       state.pending = false;
