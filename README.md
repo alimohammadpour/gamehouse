@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# Gamehouse Frontend Challenge - TypeScript & React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simplified version of the user subscription workflow for offered plans.
 
-Currently, two official plugins are available:
+## Dependencies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ensure the following are installed on your machine:
 
-## Expanding the ESLint configuration
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Git](https://git-scm.com/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+To set up the project locally, follow these steps:
+
+### 1. Clone the Repository
+
+```
+git clone https://github.com/alimohammadpour/gamehouse.git
+cd gamehouse
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 2. Start the application
+After running the following command, navigate to [http://localhost:5173/](http://localhost:5173/) to interact with the implemented subscription workflow.
 ```
+docker-compose up -d
+```
+As a step, while you are trying to subscribe, the generated verification code is accessible via the node container log:
+```
+docker-compose logs -f --tail=10 node
+```
+
+### 3. Testing
+```
+docker-compose exec react npm run test
+```
+
+## Clarification
+To keep the implementation simple, the provided server file is included in this repository, and some changes have been made to enable CORS. The setup, Dockerfile and docker-compose.yml are written to be used in the development env. For further considerations and the production environment, some changes need to be applied. 
