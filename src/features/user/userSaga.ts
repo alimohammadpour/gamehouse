@@ -11,22 +11,23 @@ import {
   requestStartTrialFailure,
 } from './userSlice';
 import { api } from '../../api';
+import { getError } from '../../utils/ErrorTypeHandler';
 
 export function* handleRequestCodePending({ payload }: ReturnType<typeof requestCodePending>) {
   try {
     yield call(api.get, `send-email?email=${encodeURIComponent(payload)}`);
     yield put(requestCodeSuccess());
-  } catch (error: any) {
-    yield put(requestCodeFailure(error.response?.data?.error || 'Failed to send code'));
+  } catch (err: unknown) {
+    yield put(requestCodeFailure(getError(err) || 'Failed to send code'));
   }
 }
 
-function* handleVerifyCodePending({ payload }: ReturnType<typeof verifyCodePending>) {
+export function* handleVerifyCodePending({ payload }: ReturnType<typeof verifyCodePending>) {
   try {
     const { data: { user_id } } = yield call(api.post, 'validate-email', payload);
     yield put(verifyCodeSuccess(user_id));
-  } catch (error: any) {
-    yield put(verifyCodeFailure(error.response?.data?.error || 'Verification failed'));
+  } catch (err: unknown) {
+    yield put(verifyCodeFailure(getError(err) || 'Verification failed'));
   }
 }
 
@@ -34,8 +35,8 @@ export function* handleRequestStartTrialPending({ payload }: ReturnType<typeof r
   try {
     yield call(api.post, 'start-trial', payload)
     yield put(requestStartTrialSuccess());
-  } catch (error: any) {
-    yield put(requestStartTrialFailure(error.response?.data?.error || 'Failed to start trial'));
+  } catch (err: unknown) {
+    yield put(requestStartTrialFailure(getError(err) || 'Failed to start trial'));
   }
 }
 
