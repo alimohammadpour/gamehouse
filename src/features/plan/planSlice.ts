@@ -14,7 +14,7 @@ interface PlanState {
   plans: PlansType | null;
 }
 
-const initialState: PlanState = {
+export const initialState: PlanState = {
   pending: false,
   error: null,
   plans: null,
