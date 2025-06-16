@@ -5,13 +5,14 @@ import {
   requestGetPlansFailure,
 } from './planSlice';
 import { api } from '../../api';
+import { getError } from '../../utils/ErrorTypeHandler';
 
 export function* handleRequestGetPlansPending() {
   try {
     const { data } = yield call(api.get, 'products');
     yield put(requestGetPlansSuccess(data));
-  } catch (error: any) {
-    yield put(requestGetPlansFailure(error.response?.data?.error || 'Failed to get plans'));
+  } catch (error: unknown) {
+    yield put(requestGetPlansFailure(getError(error) || 'Failed to get plans'));
   }
 }
 
